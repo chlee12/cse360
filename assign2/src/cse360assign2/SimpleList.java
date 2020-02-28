@@ -25,32 +25,41 @@ public class SimpleList {
 	
 	/**
 	 * Adds a specified integer to the list array at position 0 and moves the 
-	 * other elements to the right. If the list is full, then the last element
-	 * "falls off" the list. If the list is not full, count is incremented. 
-	 * Otherwise, count stays at 10.
-	 * 
+	 * other elements to the right. If the list is full, then the list's size
+	 * is increased by 50%, and count is incremented. If the list is not full,
+	 * count is incremented. 
+	 *  
 	 * @param toAdd		an integer to add to the array
 	 */
 	public void add(int toAdd)
 	{
 		int[] newList = new int[10];
 		
-		for(int index = 0; index < 9; index ++) 
+		if(this.count < this.list.length)		// increment count if count is not the length of the array
+		{
+			this.count++;
+			
+		}
+		else
+		{
+			newList = new int[(int) (this.list.length*0.5)];	// make array's size increase by 50%
+			this.count++;
+		}
+		
+		for(int index = 0; index < this.list.length; index ++) 
 		{
 			newList[index + 1] = this.list[index]; // copy old array contents to new array
 		}
 		newList[0] = toAdd;
 		this.list = newList; 	// replace old list with newList with new integer
-		if(this.count < 10)		// increment count if count is not 10
-		{
-			this.count++;
-		}
+		
 	}
 	
 	/**
 	 * Removes a specified integer from the array list if it exists in the 
 	 * array, then moves the other values in the list array. Also decrements
-	 * count.
+	 * count. If the list has more than 25% empty spaces, we decrease the
+	 * size of the list.
 	 * 
 	 * @param toRemove	the integer to remove from the list array
 	 */
@@ -58,12 +67,27 @@ public class SimpleList {
 	{
 		if(this.search(toRemove) != -1)
 		{
-			for(int indexInside = this.search(toRemove) + 1; indexInside < 10; indexInside ++)
+			for(int indexInside = this.search(toRemove) + 1; indexInside 
+					< this.count(); indexInside ++)
 			{
 				this.list[indexInside - 1] = this.list[indexInside];
 			}
 			count --;
 		}
+		
+		if(((double)(this.list.length - count()/this.list.length)) > 0.25 && 
+				this.list.length > 1)		// check to decrease the list size
+		{
+			int newSize = (int) (0.75*this.list.length);
+			int[] newList = new int[newSize];
+			
+			for(int index = 0; index < newList.length; index ++) 
+			{
+				newList[index] = this.list[index]; // copy old array contents to new array
+			}
+			this.list = newList; 	// replace old list with newList with new integer
+		}
+		
 	}
 	
 	/**
