@@ -3,10 +3,11 @@ package cse360assign2;
 /**
  * Author: Cameron Lee 
  * Class ID: 128
- * Assignment #1
+ * Assignment #2
  * This class includes methods to initialize and manipulate an array of
  * integers. 
- * Methods: constructor, add(int), remove(int), int count(), String toString(), and int search(int)
+ * Github link: https://github.com/chlee12/cse360/tree/master/assign2/src/cse360assign2
+ * Methods: constructor, add(int), append(int), first(int), size(int), remove(int), int count(), String toString(), and int search(int)
  */
 public class SimpleList {
 	
