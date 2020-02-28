@@ -1,5 +1,5 @@
 package cse360assign2;
-// package assign2;
+
 /**
  * Author: Cameron Lee 
  * Class ID: 128
@@ -33,26 +33,21 @@ public class SimpleList {
 	 */
 	public void add(int toAdd)
 	{
-		int[] newList = new int[10];
+		int[] newList = new int[this.size()];
 		
-		if(this.count < this.list.length)		// increment count if count is not the length of the array
+		if(! (this.count < this.list.length - 1))
 		{
-			this.count++;
-			
-		}
-		else
-		{
-			newList = new int[(int) (this.list.length*0.5)];	// make array's size increase by 50%
-			this.count++;
+			int newListSize = (int) (Math.floor(this.list.length*1.5));
+			newList = new int[newListSize];	// make array's size increase by 50%
 		}
 		
-		for(int index = 0; index < this.list.length; index ++) 
+		for(int index = 0; index < this.count; index ++) 
 		{
 			newList[index + 1] = this.list[index]; // copy old array contents to new array
 		}
 		newList[0] = toAdd;
 		this.list = newList; 	// replace old list with newList with new integer
-		
+		this.count++;
 	}
 	
 	/**
@@ -78,7 +73,7 @@ public class SimpleList {
 		if(((double)(this.list.length - count()/this.list.length)) > 0.25 && 
 				this.list.length > 1)		// check to decrease the list size
 		{
-			int newSize = (int) (0.75*this.list.length);
+			int newSize = (int) (Math.floor(0.75*this.list.length));
 			int[] newList = new int[newSize];
 			
 			for(int index = 0; index < newList.length; index ++) 
@@ -136,5 +131,60 @@ public class SimpleList {
 		}
 		
 		return foundIndex;
+	}
+	
+	/**
+	 * Appends parameter to the end of the list. If the list is full, then the
+	 * size is increased by 50% so there will be room. Count is incremented.
+	 * 
+	 * @param toAppend	integer to append to the end of the list
+	 */
+	public void append(int toAppend)
+	{
+		int[] newList = new int[10];
+		
+		if(this.count < this.list.length)		// increment count if count is not the length of the array
+		{
+			this.count++;		
+		}
+		else
+		{
+			newList = new int[(int) (Math.floor(this.list.length*0.5))];	// make array's size increase by 50%
+			this.count++;
+		}
+		
+		for(int index = 0; index <= this.count; index ++) 
+		{
+			if(index < this.count)
+			{
+				newList[index] = this.list[index]; // copy old array contents to new array
+			}
+			else
+			{
+				newList[index] = toAppend;
+			}
+		}
+		this.list = newList; 	// replace old list with newList with new integer
+	}
+	
+	/**
+	 * Returns the first element in the list.
+	 * 
+	 * @return			the first element in the list.
+	 */
+	public int first()
+	{
+		return this.list[0];
+	}
+	
+	
+	/**
+	 * Returns the current number of possible locations in the list.
+	 * 
+	 * @return			the number of possible locations in the list.
+	 */
+	public int size()
+	{
+		return this.list.length;
 	}
 }
